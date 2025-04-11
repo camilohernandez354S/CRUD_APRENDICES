@@ -1,4 +1,4 @@
--- Crear base de datos
+-- Crea la base de datos
 CREATE DATABASE IF NOT EXISTS prueba_db;
 
 USE prueba_db;

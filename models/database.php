@@ -1,20 +1,24 @@
 <?php
-
 class Database {
-    public static function connect() {
-        $host = 'localhost';
-        $database = 'prueba_db';
-        $user = 'root';
-        $password = '';
+    private $host = 'localhost';
+    private $dbname = 'prueba_db';
+    private $user = 'root';
+    private $password = '';
+    private $conn;
 
-        try {
-            $conexion = new PDO("mysql:host=$host;dbname=$database;charset=utf8", $user, $password);
-            $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            return $conexion;
-        } catch (PDOException $e) {
-            die("Error al conectar " . $e->getMessage());
+    public function getConnection() {
+        if (!$this->conn) {
+            try {
+                $this->conn = new PDO(
+                    "mysql:host=$this->host;dbname=$this->dbname;charset=utf8",
+                    $this->user,
+                    $this->password
+                );
+                $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $e) {
+                die(" Error de conexión: " . $e->getMessage());
+            }
         }
+        return $this->conn;
     }
 }
-
-Database::connect();

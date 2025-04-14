@@ -25,12 +25,12 @@ class Aprendices {
                     personas.primer_apellido,
                     personas.segundo_apellido,
                     personas.fecha_nacimiento,
-                    programas.nombre AS programa_formacion
+                    programas.nombre AS programa
                 FROM aprendices
                 INNER JOIN personas ON personas.id = aprendices.persona_id
-                INNER JOIN aprendiz_ficha ON aprendices.id = aprendiz_ficha.aprendiz_id
-                INNER JOIN fichas ON fichas.id = aprendiz_ficha.ficha_id
-                INNER JOIN programas ON programas.id = fichas.programa_id";
+                LEFT JOIN aprendiz_ficha ON aprendices.id = aprendiz_ficha.aprendiz_id
+                LEFT JOIN fichas ON fichas.id = aprendiz_ficha.ficha_id
+                LEFT JOIN programas ON programas.id = fichas.programa_id";
     
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
